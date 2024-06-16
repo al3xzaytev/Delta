@@ -1,0 +1,4 @@
+TODO:
+
+- Add item system
+- Add more monster types
