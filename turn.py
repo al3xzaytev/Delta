@@ -4,7 +4,7 @@ import monsters
 
 def initialize(character):
     if character == "player":
-        player = monsters.set_player_attributes()
+        player = monsters.init_new_player()
         return player
 
     if character == "monster":
@@ -38,11 +38,7 @@ def turn(player, monster):
 
             monster.health -= player_damage
 
-            if check_health(monster.health) == "dead":
-                print(f"VICTORY!\n{monster.type} defeated !!")
-                return "win"
-            else:
-                return "attack"
+            return "attack"
         elif command == "heal":
             if player.heal > 0:
                 input("Heal: press Enter!")
@@ -96,15 +92,21 @@ def turn(player, monster):
         print(f"MONSTER TYPE: {monster.type}")
         print(f"MONSTER ABILITY AMOUNT: {monster.ability_amount}")
 
+        if check_health(player.health) == "dead":
+            print("DEFEATED!\nYou have been defeated by the monster !!")
+            return "defeated"
+
+        if check_health(monster.health) == "dead":
+            print(f"VICTORY!\n{monster.type} defeated !!")
+            return "win"
+
         if current_player == "player":
             print("Player's turn.")
             while True:
                 action = input("What do you want to do (attack, heal, block): ")
 
                 result = process_action(action)
-                if result == "win":
-                    return "win"
-                elif result == "block":
+                if result == "block":
                     current_player = "player"
                     break
                 elif result == "fail":
@@ -118,7 +120,4 @@ def turn(player, monster):
 
             monster_attack()
 
-            if check_health(player.health) == "dead":
-                print("DEFEATED!\nYou have been defeated by the monster !!")
-                return "defeated"
             current_player = "player"
