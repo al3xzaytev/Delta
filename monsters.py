@@ -17,8 +17,8 @@ class Monster:
         self.health += amount
 
 
-def set_player_attributes():
-    print("== NEW PLAYER ==")
+def init_new_player():
+    print("\n== NEW PLAYER ==")
     input_health = int(input("Input player health: "))
     input_modifier = int(input("Input damage modifier: "))
     input_heals = int(input("Input amount of heals: "))
@@ -41,7 +41,7 @@ def set_player_attributes():
 
 
 def init_new_monster():
-    print("== MONSTER ==")
+    print("\n== MONSTER ==")
     monster_health = int(input("Input monster health: "))
     monster_type = input("Monster type (skeleton, knight, mage, orc): ")
 
@@ -51,21 +51,21 @@ def init_new_monster():
         monster = Monster(monster_health, "Skeleton", 0)
 
     elif monster_type == "knight":
-        block_chance = str(input("\nKnights have the \"Armor\" ability: "
-                                 "They are armored, giving them a chance to block player attacks.\n"
+        block_chance = str(input("\nKnights have the \"Swordsman\" ability: "
+                                 "Their adept sword-fighting skills give them a chance to block attacks.\n"
                                  "Set the blocking chance in percentage (e.g. 20): "))
         block_chance = float(block_chance)/100
         monster = Monster(monster_health, "Knight", block_chance)
 
     elif monster_type == "mage":
         poison = int(input("\nMages have the \"Poison\" ability: "
-                           "They throw out a potion which damages the player every turn.\n"
+                           "They throw out a poisonous potion which damages the player every turn.\n"
                            "Set the poison damage: "))
         monster = Monster(monster_health, "Mage", poison)
 
     elif monster_type == "orc":
-        attack_modifier = int(input("\nOrcs wield mighty greatswords: "
-                                    "They add damage to their base attack.\n"
+        attack_modifier = int(input("\nOrcs wield mighty greatswords, "
+                                    "adding damage to their base attack.\n"
                                     "Set the added damage bonus: "))
         monster = Monster(monster_health, "Orc", attack_modifier)
     else:
