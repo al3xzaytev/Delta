@@ -1,4 +1,13 @@
 TODO:
 
+- Implement new print message system
 - Add item system
-- Add more monster types
+    - Items can be picked up after defeating a monster
+    - Items can be used to defeat one monster; they are lost after defeating a monster.
+    - Different monsters drop different items:
+        - Defeating the mage gives you the Mage Robe (poison resistance) or Poison Potion (added damage every turn)
+        - Defeating the skeleton gives you the Bone of the Dead
+        - Defeating the knight gives you the Shield (chance to block attack) or Armor (lessen damage)
+        - Defeating the orc gives you the Great-Sword (damage buff) or Orc Flesh (HP boost)
+- Add more monster types (spiders)
+- Implement more stats??? (agility - dodge attacks; speed - attacks per turn...)
