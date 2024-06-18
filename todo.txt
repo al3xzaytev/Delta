@@ -1,7 +1,7 @@
 TODO:
 
-- ADD 2-PLAYER SUPPORT - done, but many things are now broken: need to fix adding new player when one dies
-- FIX: "RuntimeError: dictionary changed size during iteration" - File "D:\Delta\run.py", line 34, in start_level
+- Add resetting player stats (health) for new level
+- Make blocking actually useful
 
 - Implement new print message system
 - Add item system
