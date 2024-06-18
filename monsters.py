@@ -45,7 +45,7 @@ def init_new_player():
 def init_new_monster():
     print("\n== MONSTER ==")
     monster_health = int(input("Input monster health: "))
-    monster_type = input("Monster type (skeleton, knight, mage, orc): ")
+    monster_type = input("Monster type (skeleton, knight, mage, orc, spider): ")
 
     if monster_type == "skeleton":
         print("\nSkeletons have the \"Lifesteal\" ability: "
@@ -70,6 +70,9 @@ def init_new_monster():
                                     "adding damage to their base attack.\n"
                                     "Set the added damage bonus: "))
         monster = Monster(monster_health, "Orc", attack_modifier)
+    elif monster_type == "spider":
+        print("\nSpiders can shoot their webs, immobilizing a player for one turn.")
+        monster = Monster(monster_health, "Spider", 0)
     else:
         monster = Monster(monster_health, monster_type, 0)
 

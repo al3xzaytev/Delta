@@ -64,6 +64,11 @@ def turn(player_list, monster):
             print(f"The Skeleton has stolen {monster_damage} HP !!")
             monster.lifesteal(monster_damage)
 
+        if monster.type == "Spider":  # Select a random player to root
+            root_target = random.choice(list(targets.keys()))
+            root_target.effect = "Rooted"
+            print(f"The Spider has rooted {root_target.name} !!")
+
         for player in targets:
             player.health -= monster_damage
             if monster.type == "Mage":
@@ -94,7 +99,6 @@ def turn(player_list, monster):
     def interface(players_display, monster_display, turn_no):
         print(f"==================== TURN {turn_no} ====================")
         for player_object in players_display:
-            print()
             print(player_object.name)
             print(f"PLAYER HP: {player_object.health}")
             print(f"PLAYER DAMAGE MODIFIER: {player_object.modifier}")
@@ -103,6 +107,8 @@ def turn(player_list, monster):
             if player_object.effect == "Poisoned":
                 poison_damage = monster.ability_amount
                 print(f"Player is being poisoned by the Mage!! They will lose {poison_damage} HP every turn.")
+            elif player_object.effect == "Rooted":
+                print(f"Player is being rooted by the Spider!! They cannot do anything this turn.")
             if players_display[player_object][1] == "Dead":
                 print(lc.say("DEFEAT_MESSAGE").format(monster_display.type))
 
@@ -114,6 +120,7 @@ def turn(player_list, monster):
         return None
 
     turn_count = 1
+    rooted = False  # Magic switch that checks if a player has been rooted for one turn
 
     while True:
         # Check if monster is dead before turn
@@ -125,6 +132,12 @@ def turn(player_list, monster):
         for players in player_list:
             if players.effect == "Poisoned":
                 players.health -= monster.ability_amount
+                continue
+
+        # Check for rooted player
+        for players in player_list:
+            if players.effect == "Rooted":
+                rooted = True
                 continue
 
         # Check if players are alive before turn
@@ -159,12 +172,24 @@ def turn(player_list, monster):
                 player_name = player_info[0]
                 player_status = player_info[1]
 
-                if player_status == "Alive":
-                    result = process_turn(player_list, players, "player", player_name)
-                    if result == "win":
-                        return "win"
-                    else:
-                        interface(player_list, monster, turn_count)
-            process_turn(player_list, monster, "monster", monster.type)
+                if player_status == "Alive" and players.effect != "Rooted":
+                    process_turn(player_list, players, "player", player_name)
+                    interface(player_list, monster, turn_count)
+
+            if check_health(monster.health) == "dead":
+                print(lc.say("VICTORY_MESSAGE").format(monster.type))
+                return "win"
+            else:
+                process_turn(player_list, monster, "monster", monster.type)
+
+        # ======================================== END OF TURN ========================================
+
+            # Un-root the rooted player after the turn ends
+            for players in player_list:
+                if players.effect == "Rooted" and rooted:
+                    players.effect = "None"
+                    rooted = False
+                    continue
+
             turn_count += 1
             continue
