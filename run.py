@@ -30,9 +30,8 @@ def start_level(player_count):
                 player_list.update({player: [player.name, "Alive"]})
 
         # Initializes new players in place of dead ones
-        # "RuntimeError: dictionary changed size during iteration"
         number_of_carrion = 0
-        for players, info in player_list.items():
+        for players, info in player_list.copy().items():
             if info[1] == "Dead":
                 number_of_carrion += 1
                 del player_list[players]
