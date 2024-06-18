@@ -124,6 +124,8 @@ def turn(player_list, monster):
     rooted = False  # Magic switch that checks if a player has been rooted for one turn
 
     while True:
+        # ======================================== BEFORE START OF TURN ========================================
+
         # Check if monster is dead before turn
         if check_health(monster.health) == "dead":
             print(lc.say("VICTORY_MESSAGE").format(monster.type))
@@ -149,8 +151,12 @@ def turn(player_list, monster):
             else:
                 continue
 
+        # ======================================== INTERFACE DISPLAY ========================================
+
         # Display interface
         interface(player_list, monster, turn_count)
+
+        # ======================================== LOSER CHECK ========================================
 
         # Check if all players are dead
         dead_count = 0
@@ -162,9 +168,11 @@ def turn(player_list, monster):
                 dead_count += 1
                 continue
 
-        # If all players are dead... say "You lost, Bobby!".
+        # If all players are dead... You lost, Bobby! You lost! You're a loser, Bobby!
         if dead_count == len(player_list):
             return "defeated"
+
+        # ======================================== START OF TURN ========================================
 
         # Play normally if at least 1 player is alive
         else:
