@@ -117,6 +117,7 @@ def turn(player_list, monster):
         print(f"MONSTER HP: {monster_display.health}")
         print(f"MONSTER TYPE: {monster_display.type}")
         print(f"MONSTER ABILITY AMOUNT: {monster_display.ability_amount}")
+        print(f"==================== TURN {turn_no} ====================")
         return None
 
     turn_count = 1

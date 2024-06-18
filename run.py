@@ -39,14 +39,14 @@ def start_level(player_count):
             new_player = monsters.initialize("player", number_of_carrion)
             player_list.update({new_player: [new_player.name, "Alive"]})
 
-        # Displays level number and creates new monster
+        print("--------------------------------------------------------------------------------")
         print(f"LEVEL {level_number}")
-
         monster = monsters.initialize("monster", 1)
 
-        print("==============================")
+        print("--------------------------------------------------------------------------------")
         print(f"LEVEL {level_number}")
         print("FIGHT !!")
+        print("--------------------------------------------------------------------------------")
 
         while True:
             result = turn.turn(player_list, monster)  # Go play the game.

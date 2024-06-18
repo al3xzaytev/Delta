@@ -28,7 +28,7 @@ def init_new_player():
     effects = "None"
 
     player = Player(input_name, input_health, input_modifier, input_heals, input_blocks, effects)
-    print("==========")
+    print("========== PLAYER INFO ==========")
     print(f"{player.name}")
     print()
 
@@ -36,7 +36,7 @@ def init_new_player():
     print("Damage modifier:", player.modifier)
     print("Heals:", player.heal)
     print("Blocks:", player.block)
-    print("==========")
+    print("=================================")
     print()
 
     return player
@@ -54,7 +54,7 @@ def init_new_monster():
 
     elif monster_type == "knight":
         block_chance = str(input("\nKnights have the \"Swordsman\" ability: "
-                                 "Their adept sword-fighting skills give them a chance to block attacks.\n"
+                                 "Their adept sword-fighting skills gives them a chance to block attacks.\n"
                                  "Set the blocking chance in percentage (e.g. 20): "))
         block_chance = float(block_chance)/100
         monster = Monster(monster_health, "Knight", block_chance)
@@ -62,7 +62,7 @@ def init_new_monster():
     elif monster_type == "mage":
         poison = int(input("\nMages have the \"Poison\" ability: "
                            "They throw out a poisonous potion which damages the player every turn.\n"
-                           "Set the poison damage: "))
+                           "Set the poison damage for every turn: "))
         monster = Monster(monster_health, "Mage", poison)
 
     elif monster_type == "orc":
@@ -76,10 +76,11 @@ def init_new_monster():
     else:
         monster = Monster(monster_health, monster_type, 0)
 
+    print("========== MONSTER INFO ==========")
     print("HP:", monster.health)
-    print("Monster type:", monster_type)
+    print("Monster type:", monster.type)
     print("Ability amount:", monster.ability_amount)
-    print("==========")
+    print("==================================")
     input("Press Enter to continue...")
     return monster
 
