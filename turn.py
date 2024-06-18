@@ -148,6 +148,7 @@ def turn(player_list, monster):
                 dead_count += 1
                 continue
 
+        # If all players are dead... say "You lost, Bobby!".
         if dead_count == len(player_list):
             return "defeated"
 

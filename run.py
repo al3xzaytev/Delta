@@ -18,19 +18,29 @@ def main_menu():
 
 def start_level(player_count):
     player_count = int(player_count)
-
     player_list = {}
-    for i in range(player_count):
-        player = monsters.initialize("player", player_count)
-        player_list.update({player: [player.name, "Alive"]})
-
-    print(player_list)
-    for i in player_list:
-        print(type(i))
 
     level_number = 1
 
     while True:
+        # Logically, this should only be run once at the beginning of every level...
+        if len(player_list) < player_count:
+            for i in range(player_count):
+                player = monsters.initialize("player", player_count)
+                player_list.update({player: [player.name, "Alive"]})
+
+        # Initializes new players in place of dead ones
+        # "RuntimeError: dictionary changed size during iteration"
+        number_of_carrion = 0
+        for players, info in player_list.items():
+            if info[1] == "Dead":
+                number_of_carrion += 1
+                del player_list[players]
+        if number_of_carrion > 0:
+            new_player = monsters.initialize("player", number_of_carrion)
+            player_list.update({new_player: [new_player.name, "Alive"]})
+
+        # Displays level number and creates new monster
         print(f"LEVEL {level_number}")
 
         monster = monsters.initialize("monster", 1)
@@ -39,25 +49,16 @@ def start_level(player_count):
         print(f"LEVEL {level_number}")
         print("FIGHT !!")
 
-        result = turn.turn(player_list, monster)
+        while True:
+            result = turn.turn(player_list, monster)  # Go play the game.
 
-        if result == "win":
-            level_number += 1
-            continue
-        elif result == "defeated":
-            while True:
-                number_of_dead_motherfuckers = 1
-                for players, status in player_list.items():
-                    if status == "Dead":
-                        new_player = monsters.initialize("player", 1)
-                        player_list.update({new_player: ["player{0}".format(number_of_dead_motherfuckers), "Alive"]})
-                        number_of_dead_motherfuckers += 1
-                result = turn.turn(player_list, monster)
-                if result == "win":
-                    level_number += 1
-                    break
-                else:
-                    continue
+            if result == "win":
+                level_number += 1
+                for player in player_list:
+                    player.effect = "None"  # Resets all effects
+                break
+            elif result == "defeated":
+                continue
 
 
 main_menu()
