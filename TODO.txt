@@ -1,8 +1,6 @@
 TODO:
 
 - Add resetting player stats (health) for new level
-- Make blocking actually useful
-
 - Implement new print message system
 - Add item system
     - Items can be picked up after defeating a monster
