@@ -21,7 +21,7 @@ def start_level(player_count):
     player_list = {}
 
     level_number = 1
-
+    new_level = True
     while True:
         # Logically, this should only be run once at the beginning of every level...
         if len(player_list) < player_count:
@@ -41,25 +41,27 @@ def start_level(player_count):
                 new_player = monsters.initialize("player")
                 player_list.update({new_player: [new_player.name, "Alive"]})
 
-        print("--------------------------------------------------------------------------------")
-        print(f"LEVEL {level_number}")
-        monster = monsters.initialize("monster", 1)
+        if new_level:
+            print("--------------------------------------------------------------------------------")
+            print(f"LEVEL {level_number}")
+            monster = monsters.initialize("monster")
 
-        print("--------------------------------------------------------------------------------")
-        print(f"LEVEL {level_number}")
-        print("FIGHT !!")
-        print("--------------------------------------------------------------------------------")
+            print("--------------------------------------------------------------------------------")
+            print(f"LEVEL {level_number}")
+            print("FIGHT !!")
+            print("--------------------------------------------------------------------------------")
 
         while True:
             result = turn.turn(player_list, monster)  # Go play the game.
-
             if result == "win":
-                level_number += 1
                 for player in player_list:
                     player.effect = "None"  # Resets all effects
+                level_number += 1
+                new_level = True
                 break
             elif result == "defeated":
-                continue
+                new_level = False
+                break
 
 
 main_menu()
