@@ -72,14 +72,24 @@ def turn(player_list, monster):
             monster.lifesteal(monster_damage)
 
         if monster.type == "Spider":  # Select a random player to root
-            root_target = random.choice(list(targets.keys()))
-            root_target.effect = "Rooted"
-            print(f"The Spider has rooted {root_target.name} !!")
+            while True:
+                root_target = random.choice(list(targets.keys()))
+                root_target_status = targets[root_target][1]
+                print(root_target_status)
+                if root_target_status == "Alive":  # Root target has to be alive
+                    root_target.effect = "Rooted"
+                    break
+                else:
+                    continue
+            print(f"The Spider has rooted {root_target.name} !! They will not be able to move next turn.")
 
         for player in targets:  # Deal damage
             player.health -= monster_damage
             if monster.type == "Mage":  # Poison all players
                 player.effect = "Poisoned"
+
+        if monster.type == "Spider":
+            return root_target.name
 
     def process_turn(players_turn, player, player_type, name):  # Processes the turn for players and monsters
         # Reminder: players_turn takes player_list dictionary
@@ -104,8 +114,8 @@ def turn(player_list, monster):
         # Monster's turn
         elif player_type == "monster":
             print(f"\n{monster.type}'s turn.")
-            monster_attack(player_list)
-            return "done"
+            result = monster_attack(player_list)
+            return result
 
     def interface(players_display, monster_display, turn_no):  # Prints player and monster info
         print(f"==================== TURN {turn_no} ====================")
@@ -140,7 +150,10 @@ def turn(player_list, monster):
         return None
 
     turn_count = 1
-    rooted = False  # Magic switch that checks if a player has been rooted for one turn
+
+    rooted_dict = {}  # Keep track of who's rooted
+    for players in list(player_list.keys()):
+        rooted_dict.update({players.name: "No"})
 
     while True:
         # ======================================== BEFORE START OF TURN ========================================
@@ -154,12 +167,6 @@ def turn(player_list, monster):
         for players in player_list:
             if players.effect == "Poisoned":
                 players.health -= monster.ability_amount
-                continue
-
-        # Check for rooted player
-        for players in player_list:
-            if players.effect == "Rooted":
-                rooted = True
                 continue
 
         # Check if players are alive before turn
@@ -211,18 +218,24 @@ def turn(player_list, monster):
                 print(lc.say("VICTORY_MESSAGE").format(monster.type))
                 return "win"
             elif monster.effect != "Blocked":
-                process_turn(player_list, monster, "monster", monster.type)
+                monster_target = process_turn(player_list, monster, "monster", monster.type)
             else:
                 print(f"The {monster.type} is blocked and cannot attack this turn!")
 
         # ======================================== END OF TURN ========================================
 
-            # Un-root the rooted player after the turn ends
-            for players in player_list:
-                if players.effect == "Rooted" and rooted:
-                    players.effect = "None"
-                    rooted = False
-                    continue
+            if monster.type == "Spider":
+                for players in player_list:
+                    if players.effect == "Rooted":  # Rooted next turn
+                        if rooted_dict[players.name] == "No":
+                            rooted_dict[players.name] = "Yes"  # Set a flag that keeps player in root
+                            continue
+
+                        elif rooted_dict[players.name] == "Yes":  # Rooted for this turn
+                            if monster_target != players.name:  # If he wasn't rooted again next turn...
+                                players.effect = "None"  # Un-root
+                                rooted_dict[players.name] = "No"  # Bring the flag down
+                                continue
 
             # Remove blocked effect for the monster after the turn ends
             if monster.effect == "Blocked":
