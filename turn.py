@@ -62,7 +62,7 @@ def turn(player_list, monster):
         monster_damage = random.randrange(1, 7)
 
         if monster.type == "Orc":
-            print(f"{monster.type} attacked the players and did {monster_damage} + {monster.ability_amount} damage!")
+            print(f"{monster.type} attacked the players and did {monster_damage} + {monster.ability_amount} damage !!")
             monster_damage += monster.ability_amount
         else:
             print(f"{monster.type} attacked the players and did {monster_damage} damage!")
