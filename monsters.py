@@ -86,11 +86,10 @@ def init_new_monster():
     return monster
 
 
-def initialize(character, amount):
+def initialize(character):
     if character == "player":
-        for i in range(0, amount):
-            player = init_new_player()
-            return player
+        player = init_new_player()
+        return player
 
     if character == "monster":
         monster = init_new_monster()
