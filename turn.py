@@ -203,6 +203,9 @@ def turn(player_list, monster):
                 if player_status == "Alive" and players.effect != "Rooted":
                     process_turn(player_list, players, "player", player_name)
                     interface(player_list, monster, turn_count)
+                    if check_health(monster.health) == "dead":
+                        print(lc.say("VICTORY_MESSAGE").format(monster.type))
+                        return "win"
 
             if check_health(monster.health) == "dead":
                 print(lc.say("VICTORY_MESSAGE").format(monster.type))
