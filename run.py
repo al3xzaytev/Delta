@@ -26,7 +26,7 @@ def start_level(player_count):
         # Logically, this should only be run once at the beginning of every level...
         if len(player_list) < player_count:
             for i in range(player_count):
-                player = monsters.initialize("player", player_count)
+                player = monsters.initialize("player")
                 player_list.update({player: [player.name, "Alive"]})
 
         # Initializes new players in place of dead ones
@@ -35,9 +35,11 @@ def start_level(player_count):
             if info[1] == "Dead":
                 number_of_carrion += 1
                 del player_list[players]
+
         if number_of_carrion > 0:
-            new_player = monsters.initialize("player", number_of_carrion)
-            player_list.update({new_player: [new_player.name, "Alive"]})
+            for i in range(number_of_carrion):
+                new_player = monsters.initialize("player")
+                player_list.update({new_player: [new_player.name, "Alive"]})
 
         print("--------------------------------------------------------------------------------")
         print(f"LEVEL {level_number}")
