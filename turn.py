@@ -103,6 +103,8 @@ def turn(player_list, monster):
             print(player_object.name)
             print(f"PLAYER HP: {player_object.health}")
             print(f"PLAYER DAMAGE MODIFIER: {player_object.modifier}")
+            print(f"PLAYER HEALS: {player_object.heal}")
+            print(f"PLAYER BLOCKS: {player_object.block}")
             print(f"PLAYER EFFECT: {player_object.effect}")
             print(f"PLAYER STATUS: {players_display[player_object][1]}")
             if player_object.effect == "Poisoned":
