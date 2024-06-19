@@ -44,6 +44,7 @@ def turn(player_list, monster):
             if player.block > 0:
                 print(f"Player has blocked {monster.type}'s next attack!")
                 player.block -= 1
+                monster.effect = "Blocked"
                 return "block"
             else:
                 print("Can't block - no blocks left!!")
@@ -117,6 +118,9 @@ def turn(player_list, monster):
         print(f"MONSTER HP: {monster_display.health}")
         print(f"MONSTER TYPE: {monster_display.type}")
         print(f"MONSTER ABILITY AMOUNT: {monster_display.ability_amount}")
+        print(f"MONSTER EFFECT: {monster_display.effect}")
+        if monster_display.effect == "Blocked":
+            print(f"Blocked!! The {monster_display.type} cannot attack this turn.")
         print(f"==================== TURN {turn_no} ====================")
         return None
 
@@ -188,7 +192,7 @@ def turn(player_list, monster):
             if check_health(monster.health) == "dead":
                 print(lc.say("VICTORY_MESSAGE").format(monster.type))
                 return "win"
-            else:
+            elif monster.effect != "Blocked":
                 process_turn(player_list, monster, "monster", monster.type)
 
         # ======================================== END OF TURN ========================================
@@ -199,6 +203,10 @@ def turn(player_list, monster):
                     players.effect = "None"
                     rooted = False
                     continue
+
+            # Remove blocked effect for the monster after the turn ends
+            if monster.effect == "Blocked":
+                monster.effect = "None"
 
             turn_count += 1
             continue

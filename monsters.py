@@ -9,10 +9,11 @@ class Player:
 
 
 class Monster:
-    def __init__(self, health, monster_type, ability_amount):
+    def __init__(self, health, monster_type, ability_amount, effect):
         self.health = health
         self.type = monster_type
         self.ability_amount = ability_amount
+        self.effect = effect
 
     def lifesteal(self, amount):
         self.health += amount
@@ -50,31 +51,31 @@ def init_new_monster():
     if monster_type == "skeleton":
         print("\nSkeletons have the \"Lifesteal\" ability: "
               "They can steal HP from the player through attacks.\n")
-        monster = Monster(monster_health, "Skeleton", 0)
+        monster = Monster(monster_health, "Skeleton", 0, "None")
 
     elif monster_type == "knight":
         block_chance = str(input("\nKnights have the \"Swordsman\" ability: "
                                  "Their adept sword-fighting skills gives them a chance to block attacks.\n"
                                  "Set the blocking chance in percentage (e.g. 20): "))
         block_chance = float(block_chance)/100
-        monster = Monster(monster_health, "Knight", block_chance)
+        monster = Monster(monster_health, "Knight", block_chance, "None")
 
     elif monster_type == "mage":
         poison = int(input("\nMages have the \"Poison\" ability: "
                            "They throw out a poisonous potion which damages the player every turn.\n"
                            "Set the poison damage for every turn: "))
-        monster = Monster(monster_health, "Mage", poison)
+        monster = Monster(monster_health, "Mage", poison, "None")
 
     elif monster_type == "orc":
         attack_modifier = int(input("\nOrcs wield mighty greatswords, "
                                     "adding damage to their base attack.\n"
                                     "Set the added damage bonus: "))
-        monster = Monster(monster_health, "Orc", attack_modifier)
+        monster = Monster(monster_health, "Orc", attack_modifier, "None")
     elif monster_type == "spider":
         print("\nSpiders can shoot their webs, immobilizing a player for one turn.")
-        monster = Monster(monster_health, "Spider", 0)
+        monster = Monster(monster_health, "Spider", 0, "None")
     else:
-        monster = Monster(monster_health, monster_type, 0)
+        monster = Monster(monster_health, monster_type, 0, "None")
 
     print("========== MONSTER INFO ==========")
     print("HP:", monster.health)
