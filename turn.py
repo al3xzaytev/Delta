@@ -3,13 +3,15 @@ import localization as lc
 
 
 def turn(player_list, monster):
-    def check_health(health):
+    def check_health(health):  # Checks if the object's health is zero or below i.e. dead
         if health <= 0:
             return "dead"
         else:
             return "no"
 
-    def process_action(player, command):
+    def process_action(player, command):  # Processes player actions
+
+        # Attacking
         if command == "attack":
             input("Attack: press Enter!")
 
@@ -29,6 +31,8 @@ def turn(player_list, monster):
             monster.health -= player_damage
 
             return "attack"
+
+        # Healing
         elif command == "heal":
             if player.heal > 0:
                 input("Heal: press Enter!")
@@ -40,6 +44,8 @@ def turn(player_list, monster):
             else:
                 print("Can't heal - no heals left!!")
                 return "fail"
+
+        # Blocking attack
         elif command == "block":
             if player.block > 0:
                 print(f"Player has blocked {monster.type}'s next attack!")
@@ -50,7 +56,7 @@ def turn(player_list, monster):
                 print("Can't block - no blocks left!!")
                 return "fail"
 
-    def monster_attack(targets):
+    def monster_attack(targets):  # Processes monster attacks
         input("Attack: press Enter!")
 
         monster_damage = random.randrange(1, 7)
@@ -61,7 +67,7 @@ def turn(player_list, monster):
         else:
             print(f"{monster.type} attacked the players and did {monster_damage} damage!")
 
-        if monster.type == "Skeleton":
+        if monster.type == "Skeleton":  # Skeleton lifesteal
             print(f"The Skeleton has stolen {monster_damage} HP !!")
             monster.lifesteal(monster_damage)
 
@@ -70,12 +76,15 @@ def turn(player_list, monster):
             root_target.effect = "Rooted"
             print(f"The Spider has rooted {root_target.name} !!")
 
-        for player in targets:
+        for player in targets:  # Deal damage
             player.health -= monster_damage
-            if monster.type == "Mage":
+            if monster.type == "Mage":  # Poison all players
                 player.effect = "Poisoned"
 
-    def process_turn(players_turn, player, player_type, name):  # Reminder: players_turn takes player_list dictionary
+    def process_turn(players_turn, player, player_type, name):  # Processes the turn for players and monsters
+        # Reminder: players_turn takes player_list dictionary
+
+        # Player's turn
         if player_type == "player":
             print(f"\n{name}'s turn.")
             while True:
@@ -92,13 +101,16 @@ def turn(player_list, monster):
                     else:
                         return None
 
+        # Monster's turn
         elif player_type == "monster":
             print(f"\n{monster.type}'s turn.")
             monster_attack(player_list)
             return "done"
 
-    def interface(players_display, monster_display, turn_no):
+    def interface(players_display, monster_display, turn_no):  # Prints player and monster info
         print(f"==================== TURN {turn_no} ====================")
+
+        # Player info
         for player_object in players_display:
             print(player_object.name)
             print(f"PLAYER HP: {player_object.health}")
@@ -116,6 +128,7 @@ def turn(player_list, monster):
                 print(lc.say("DEFEAT_MESSAGE").format(monster_display.type))
             print()
 
+        # Monster info
         print(monster_display.type)
         print(f"MONSTER HP: {monster_display.health}")
         print(f"MONSTER TYPE: {monster_display.type}")
