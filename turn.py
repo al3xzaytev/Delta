@@ -114,8 +114,8 @@ def turn(player_list, monster):
                 print(f"Player is being rooted by the Spider!! They cannot do anything this turn.")
             if players_display[player_object][1] == "Dead":
                 print(lc.say("DEFEAT_MESSAGE").format(monster_display.type))
+            print()
 
-        print()
         print(monster_display.type)
         print(f"MONSTER HP: {monster_display.health}")
         print(f"MONSTER TYPE: {monster_display.type}")
