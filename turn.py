@@ -209,6 +209,8 @@ def turn(player_list, monster):
                 return "win"
             elif monster.effect != "Blocked":
                 process_turn(player_list, monster, "monster", monster.type)
+            else:
+                print(f"The {monster.type} is blocked and cannot attack this turn!")
 
         # ======================================== END OF TURN ========================================
 
