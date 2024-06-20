@@ -1,7 +1,7 @@
 TODO:
 
 - Add resetting player stats (health) for new level
-- Implement new print message system
+- Implement new print message system - partially completed
 - Add item system
     - Items can be picked up after defeating a monster
     - Items can be used to defeat one monster; they are lost after defeating a monster.

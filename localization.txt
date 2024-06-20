@@ -1,22 +1,26 @@
-VICTORY_MESSAGE = VICTORY!\n{0} defeated !!
-DEFEAT_MESSAGE = DEFEATED!\nYou have been defeated by the {0} !!
+VICTORY_MESSAGE = VICTORY !!\n[0] defeated !!
+DEFEAT_MESSAGE = DEFEATED !!\nYou have been defeated by the [0] !!
 
 PLAYER_ACTION_PROMPT = What do you want to do? (attack, heal, block): 
-PLAYER_POISONED = Player is being poisoned by the Mage!! They will lose {0} HP every turn.
+PLAYER_POISONED = [0] is being poisoned by the Mage!! They will lose [1] HP every turn.
+PLAYER_ROOTED = [0] is being rooted by the [1]!! They cannot do anything this turn.
 
 PLAYER_ATTACK_PROMPT = Attack - Press Enter!
-PLAYER_ATTACK_BLOCKED = The {0} has blocked your attack !!
-PLAYER_ATTACK_DAMAGE = Player attacked and did {0} damage!
-PLAYER_ATTACK_DAMAGE_MODIFIED = Player attacked and did {0} + {1} damage !!
+PLAYER_ATTACK_BLOCKED = The [0] has blocked your attack !!
+PLAYER_ATTACK_DAMAGE = [0] attacked and did [1] damage!
+PLAYER_ATTACK_DAMAGE_MODIFIED = [0] attacked and did [1] + [2] damage !!
 
 PLAYER_HEAL_PROMPT = Heal - Press Enter!
-PLAYER_HEAL_AMOUNT = Player healed for {0} HP!
+PLAYER_HEAL_AMOUNT = [0] healed for [1] HP!
 PLAYER_HEAL_FAIL = Can't heal - no heals left!!
 
-PLAYER_BLOCK = Player has blocked {0}'s next attack!
+PLAYER_BLOCK = [0] has blocked [1]'s next attack!
 PLAYER_BLOCK_FAIL = Can't block - no blocks left!!
 
+MONSTER_BLOCKED_UI = Blocked!! The [0] cannot attack this turn.
 MONSTER_ATTACK_PROMPT = Attack - Press Enter!
-MONSTER_ATTACK_DAMAGE = The {0} attacked the players and did {1} damage!
-MONSTER_ATTACK_DAMAGE_ORC = The {0} attacked the players and did {1} + {2} damage !!
-MONSTER_ATTACK_LIFESTEAL_AMOUNT = The {0} has stolen {1} HP !!
+MONSTER_ATTACK_DAMAGE = The [0] attacked the players and did [1] damage!
+MONSTER_ATTACK_DAMAGE_ORC = The [0] attacked the players and did [1] + [2] damage !!
+MONSTER_ATTACK_LIFESTEAL_AMOUNT = The [0] has stolen [1] HP !!
+MONSTER_ROOT = The [0] has rooted [1] !! They will not be able to move next turn.
+MONSTER_BLOCKED = The [0] is blocked and cannot attack this turn!

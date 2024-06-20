@@ -13,20 +13,20 @@ def turn(player_list, monster):
 
         # Attacking
         if command == "attack":
-            input("Attack: press Enter!")
-
+            lc.say("PLAYER_ATTACK_PROMPT", [])
+            input()
             if monster.type == "Knight":
                 if random.random() < monster.ability_amount:
-                    print("The Knight has blocked your attack !!")
+                    lc.say("PLAYER_ATTACK_BLOCKED", [monster.type])
                     return "blocked"
 
             player_damage = random.randrange(1, 7)
 
             if player.modifier != 0:
-                print(f"Player attacked and did {player_damage} + {player.modifier} damage!")
+                lc.say("PLAYER_ATTACK_DAMAGE_MODIFIED", [player.name, player_damage, player.modifier])
                 player_damage = player_damage + player.modifier
             else:
-                print(f"Player attacked and did {player_damage} damage!")
+                lc.say("PLAYER_ATTACK_DAMAGE", [player.name, player_damage])
 
             monster.health -= player_damage
 
@@ -35,40 +35,42 @@ def turn(player_list, monster):
         # Healing
         elif command == "heal":
             if player.heal > 0:
-                input("Heal: press Enter!")
+                lc.say("PLAYER_HEAL_PROMPT", [])
+                input()
                 heal = random.randrange(1, 7)
-                print(f"Player healed for {heal} HP!")
+                lc.say("PLAYER_HEAL_AMOUNT", [player.name, heal])
                 player.health += heal
                 player.heal -= 1
                 return "heal"
             else:
-                print("Can't heal - no heals left!!")
+                lc.say("PLAYER_HEAL_FAIL", [])
                 return "fail"
 
         # Blocking attack
         elif command == "block":
             if player.block > 0:
-                print(f"Player has blocked {monster.type}'s next attack!")
+                lc.say("PLAYER_BLOCK", [player.name, monster.type])
                 player.block -= 1
                 monster.effect = "Blocked"
                 return "block"
             else:
-                print("Can't block - no blocks left!!")
+                lc.say("PLAYER_BLOCK_FAIL", [])
                 return "fail"
 
     def monster_attack(targets):  # Processes monster attacks
-        input("Attack: press Enter!")
+        lc.say("PLAYER_ATTACK_PROMPT", [])
+        input()
 
         monster_damage = random.randrange(1, 7)
 
         if monster.type == "Orc":
-            print(f"{monster.type} attacked the players and did {monster_damage} + {monster.ability_amount} damage !!")
+            lc.say("MONSTER_ATTACK_DAMAGE_ORC", [monster.type, monster_damage, monster.ability_amount])
             monster_damage += monster.ability_amount
         else:
-            print(f"{monster.type} attacked the players and did {monster_damage} damage!")
+            lc.say("MONSTER_ATTACK_DAMAGE", [monster.type, monster_damage])
 
         if monster.type == "Skeleton":  # Skeleton lifesteal
-            print(f"The Skeleton has stolen {monster_damage} HP !!")
+            lc.say("MONSTER_ATTACK_LIFESTEAL_AMOUNT", [monster.type, monster_damage])
             monster.lifesteal(monster_damage)
 
         if monster.type == "Spider":  # Select a random player to root
@@ -81,6 +83,7 @@ def turn(player_list, monster):
                     break
                 else:
                     continue
+            lc.say("MONSTER_ROOT", [monster.type, root_target.name])
             print(f"The Spider has rooted {root_target.name} !! They will not be able to move next turn.")
 
         for player in targets:  # Deal damage
@@ -98,7 +101,8 @@ def turn(player_list, monster):
         if player_type == "player":
             print(f"\n{name}'s turn.")
             while True:
-                action = input("What do you want to do? (attack, heal, block): ")
+                lc.say("PLAYER_ACTION_PROMPT", [])
+                action = input()
                 turn_result = process_action(player, action)
                 if turn_result == "block":
                     continue
@@ -106,7 +110,7 @@ def turn(player_list, monster):
                     continue
                 else:
                     if check_health(monster.health) == "dead":
-                        print(lc.say("VICTORY_MESSAGE").format(monster.type))
+                        lc.say("VICTORY_MESSAGE", [monster.type])
                         return "win"
                     else:
                         return None
@@ -131,21 +135,21 @@ def turn(player_list, monster):
             print(f"PLAYER STATUS: {players_display[player_object][1]}")
             if player_object.effect == "Poisoned":
                 poison_damage = monster.ability_amount
-                print(f"Player is being poisoned by the Mage!! They will lose {poison_damage} HP every turn.")
+                lc.say("PLAYER_POISONED", [player_object.name, monster.type, poison_damage])
             elif player_object.effect == "Rooted":
-                print(f"Player is being rooted by the Spider!! They cannot do anything this turn.")
+                lc.say("PLAYER_ROOTED", [player_object.name, monster.type])
             if players_display[player_object][1] == "Dead":
-                print(lc.say("DEFEAT_MESSAGE").format(monster_display.type))
+                lc.say("DEFEAT_MESSAGE", [monster.type])
             print()
 
         # Monster info
-        print(monster_display.type)
-        print(f"MONSTER HP: {monster_display.health}")
-        print(f"MONSTER TYPE: {monster_display.type}")
-        print(f"MONSTER ABILITY AMOUNT: {monster_display.ability_amount}")
-        print(f"MONSTER EFFECT: {monster_display.effect}")
-        if monster_display.effect == "Blocked":
-            print(f"Blocked!! The {monster_display.type} cannot attack this turn.")
+        print(monster.type)
+        print(f"MONSTER HP: {monster.health}")
+        print(f"MONSTER TYPE: {monster.type}")
+        print(f"MONSTER ABILITY AMOUNT: {monster.ability_amount}")
+        print(f"MONSTER EFFECT: {monster.effect}")
+        if monster.effect == "Blocked":
+            lc.say("MONSTER_BLOCKED_UI", monster.type)
         print(f"==================== TURN {turn_no} ====================")
         return None
 
@@ -160,7 +164,7 @@ def turn(player_list, monster):
 
         # Check if monster is dead before turn
         if check_health(monster.health) == "dead":
-            print(lc.say("VICTORY_MESSAGE").format(monster.type))
+            lc.say("VICTORY_MESSAGE", [monster.type])
             return "win"
 
         # Poison each player every new turn
@@ -211,7 +215,7 @@ def turn(player_list, monster):
                     process_turn(player_list, players, "player", player_name)
                     interface(player_list, monster, turn_count)
                     if check_health(monster.health) == "dead":
-                        print(lc.say("VICTORY_MESSAGE").format(monster.type))
+                        lc.say("VICTORY_MESSAGE", [monster.type])
                         return "win"
 
             if check_health(monster.health) == "dead":
@@ -220,7 +224,7 @@ def turn(player_list, monster):
             elif monster.effect != "Blocked":
                 monster_target = process_turn(player_list, monster, "monster", monster.type)
             else:
-                print(f"The {monster.type} is blocked and cannot attack this turn!")
+                lc.say("MONSTER_BLOCKED", [monster.type])
 
         # ======================================== END OF TURN ========================================
 
