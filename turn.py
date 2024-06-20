@@ -218,10 +218,7 @@ def turn(player_list, monster):
                         lc.say("VICTORY_MESSAGE", [monster.type])
                         return "win"
 
-            if check_health(monster.health) == "dead":
-                print(lc.say("VICTORY_MESSAGE").format(monster.type))
-                return "win"
-            elif monster.effect != "Blocked":
+            if monster.effect != "Blocked":
                 monster_target = process_turn(player_list, monster, "monster", monster.type)
             else:
                 lc.say("MONSTER_BLOCKED", [monster.type])
