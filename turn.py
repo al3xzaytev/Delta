@@ -121,7 +121,7 @@ def turn(player_list, monster):
             result = monster_attack(player_list)
             return result
 
-    def interface(players_display, monster_display, turn_no):  # Prints player and monster info
+    def interface(players_display, turn_no):  # Prints player and monster info
         print(f"==================== TURN {turn_no} ====================")
 
         # Player info
@@ -184,7 +184,7 @@ def turn(player_list, monster):
         # ======================================== INTERFACE DISPLAY ========================================
 
         # Display interface
-        interface(player_list, monster, turn_count)
+        interface(player_list, turn_count)
 
         # ======================================== LOSER CHECK ========================================
 
@@ -213,7 +213,7 @@ def turn(player_list, monster):
 
                 if player_status == "Alive" and players.effect != "Rooted":
                     process_turn(player_list, players, "player", player_name)
-                    interface(player_list, monster, turn_count)
+                    interface(player_list, turn_count)
                     if check_health(monster.health) == "dead":
                         lc.say("VICTORY_MESSAGE", [monster.type])
                         return "win"
