@@ -94,3 +94,7 @@ def initialize(character):
     if character == "monster":
         monster = init_new_monster()
         return monster
+
+
+def compare_with_base(base, current):
+    return base.health == current.health and base.heal == current.heal and base.block == current.block

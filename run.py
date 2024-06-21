@@ -1,3 +1,5 @@
+import copy
+
 import turn
 import config
 import monsters
@@ -22,11 +24,14 @@ def start_level(player_count):
 
     level_number = 1
     new_level = True
+    player_storage = []
+
     while True:
         # Logically, this should only be run once at the beginning of every level...
         if len(player_list) < player_count:
             for i in range(player_count):
                 player = monsters.initialize("player")
+                player_storage.append(copy.deepcopy(player))
                 player_list.update({player: [player.name, "Alive"]})
 
         # Initializes new players in place of dead ones
@@ -38,8 +43,24 @@ def start_level(player_count):
 
         if number_of_carrion > 0:
             for i in range(number_of_carrion):
-                new_player = monsters.initialize("player")
+                new_player, default_new_player = monsters.initialize("player")
                 player_list.update({new_player: [new_player.name, "Alive"]})
+
+        # Convoluted player stat reset after finishing a level
+        z = 0
+        while z < player_count:
+            for player_object in player_list.keys():
+                if player_object.name == player_storage[z].name:
+                    if not monsters.compare_with_base(player_storage[z], player_object):
+                        replacement = copy.deepcopy(player_storage[z])
+                        player_list[replacement] = player_list.pop(player_object)
+                        z += 1
+                        break
+                    else:
+                        z += 1
+                        continue
+                else:
+                    continue
 
         if new_level:
             print("--------------------------------------------------------------------------------")
