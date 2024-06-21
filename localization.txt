@@ -2,7 +2,7 @@ VICTORY_MESSAGE = VICTORY !!\n[0] defeated !!
 DEFEAT_MESSAGE = DEFEATED !!\nYou have been defeated by the [0] !!
 
 PLAYER_ACTION_PROMPT = What do you want to do? (attack, heal, block): 
-PLAYER_POISONED = [0] is being poisoned by the Mage!! They will lose [1] HP every turn.
+PLAYER_POISONED = [0] is being poisoned by the [1]!! They will lose [2] HP every turn.
 PLAYER_ROOTED = [0] is being rooted by the [1]!! They cannot do anything this turn.
 
 PLAYER_ATTACK_PROMPT = Attack - Press Enter!
@@ -23,4 +23,4 @@ MONSTER_ATTACK_DAMAGE = The [0] attacked the players and did [1] damage!
 MONSTER_ATTACK_DAMAGE_ORC = The [0] attacked the players and did [1] + [2] damage !!
 MONSTER_ATTACK_LIFESTEAL_AMOUNT = The [0] has stolen [1] HP !!
 MONSTER_ROOT = The [0] has rooted [1] !! They will not be able to move next turn.
-MONSTER_BLOCKED = The [0] is blocked and cannot attack this turn!
+MONSTER_BLOCKED = The [0] is blocked and cannot attack this turn!\n

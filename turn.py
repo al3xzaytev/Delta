@@ -84,7 +84,6 @@ def turn(player_list, monster):
                 else:
                     continue
             lc.say("MONSTER_ROOT", [monster.type, root_target.name])
-            print(f"The Spider has rooted {root_target.name} !! They will not be able to move next turn.")
 
         for player in targets:  # Deal damage
             player.health -= monster_damage
@@ -149,7 +148,7 @@ def turn(player_list, monster):
         print(f"MONSTER ABILITY AMOUNT: {monster.ability_amount}")
         print(f"MONSTER EFFECT: {monster.effect}")
         if monster.effect == "Blocked":
-            lc.say("MONSTER_BLOCKED_UI", monster.type)
+            lc.say("MONSTER_BLOCKED_UI", [monster.type])
         print(f"==================== TURN {turn_no} ====================")
         return None
 
