@@ -34,17 +34,17 @@ def start_level(player_count):
                 player_storage.append(copy.deepcopy(player))
                 player_list.update({player: [player.name, "Alive"]})
 
+        # Remove players from player_storage if all players are dead
+        if not new_level:
+            player_storage.clear()
+
         # Initializes new players in place of dead ones
-        number_of_carrion = 0
         for players, info in player_list.copy().items():
             if info[1] == "Dead":
-                number_of_carrion += 1
-                del player_list[players]
-
-        if number_of_carrion > 0:
-            for i in range(number_of_carrion):
-                new_player, default_new_player = monsters.initialize("player")
-                player_list.update({new_player: [new_player.name, "Alive"]})
+                new_player = monsters.initialize("player")
+                player_storage.append(copy.deepcopy(new_player))
+                player_list[new_player] = player_list.pop(players)
+                player_list[new_player] = [new_player.name, "Alive"]
 
         # Convoluted player stat reset after finishing a level
         z = 0
