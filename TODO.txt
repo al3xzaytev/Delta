@@ -9,5 +9,4 @@ TODO:
         - Defeating the skeleton gives you the Revenant Touch (lifesteal on every attack) or Undying Locket (heal buff)
         - Defeating the knight gives you the Shield (chance to block attack) or Armor (lessen damage)
         - Defeating the orc gives you the Great-Sword (damage buff) or Orc Flesh (HP boost)
-- Add more monster types (spiders)
 - Implement more stats??? (agility - dodge attacks; speed - attacks per turn...)
