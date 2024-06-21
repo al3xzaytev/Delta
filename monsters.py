@@ -20,7 +20,7 @@ class Monster:
 
 
 def init_new_player():
-    print("\n== PLAYER ==")
+    print("\n----------  NEW PLAYER  ----------")
     input_name = input("Player name: ")
     input_health = int(input("Input player health: "))
     input_modifier = int(input("Input damage modifier: "))
@@ -29,7 +29,7 @@ def init_new_player():
     effects = "None"
 
     player = Player(input_name, input_health, input_modifier, input_heals, input_blocks, effects)
-    print("========== PLAYER INFO ==========")
+    print("---------- PLAYER  INFO ----------")
     print(f"{player.name}")
     print()
 
@@ -37,14 +37,13 @@ def init_new_player():
     print("Damage modifier:", player.modifier)
     print("Heals:", player.heal)
     print("Blocks:", player.block)
-    print("=================================")
-    print()
+    print("----------------------------------")
 
     return player
 
 
 def init_new_monster():
-    print("\n== MONSTER ==")
+    print("----------- NEW MONSTER ----------")
     monster_health = int(input("Input monster health: "))
     monster_type = input("Monster type (skeleton, knight, mage, orc, spider): ")
 
@@ -77,12 +76,13 @@ def init_new_monster():
     else:
         monster = Monster(monster_health, monster_type, 0, "None")
 
-    print("========== MONSTER INFO ==========")
+    print("---------- MONSTER INFO ----------")
     print("HP:", monster.health)
     print("Monster type:", monster.type)
     print("Ability amount:", monster.ability_amount)
-    print("==================================")
+    print("----------------------------------")
     input("Press Enter to continue...")
+    print()
     return monster
 
 

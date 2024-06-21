@@ -110,6 +110,7 @@ def turn(player_list, monster):
                 else:
                     if check_health(monster.health) == "dead":
                         lc.say("VICTORY_MESSAGE", [monster.type])
+                        input("Press Enter to continue...")
                         return "win"
                     else:
                         return None
@@ -121,7 +122,7 @@ def turn(player_list, monster):
             return result
 
     def interface(players_display, turn_no):  # Prints player and monster info
-        print(f"==================== TURN {turn_no} ====================")
+        print(f"-------------------- TURN {turn_no} --------------------")
 
         # Player info
         for player_object in players_display:
@@ -149,7 +150,7 @@ def turn(player_list, monster):
         print(f"MONSTER EFFECT: {monster.effect}")
         if monster.effect == "Blocked":
             lc.say("MONSTER_BLOCKED_UI", [monster.type])
-        print(f"==================== TURN {turn_no} ====================")
+        print(f"-------------------- TURN {turn_no} --------------------")
         return None
 
     turn_count = 1
@@ -164,6 +165,7 @@ def turn(player_list, monster):
         # Check if monster is dead before turn
         if check_health(monster.health) == "dead":
             lc.say("VICTORY_MESSAGE", [monster.type])
+            input("Press Enter to continue...")
             return "win"
 
         # Poison each player every new turn
@@ -199,6 +201,7 @@ def turn(player_list, monster):
 
         # If all players are dead... You lost, Bobby! You lost! You're a loser, Bobby!
         if dead_count == len(player_list):
+            input("Defeated! Press Enter to continue by calling in new characters...")
             return "defeated"
 
         # ======================================== START OF TURN ========================================
@@ -215,6 +218,7 @@ def turn(player_list, monster):
                     interface(player_list, turn_count)
                     if check_health(monster.health) == "dead":
                         lc.say("VICTORY_MESSAGE", [monster.type])
+                        input("Press Enter to continue...")
                         return "win"
 
             if monster.effect != "Blocked":
