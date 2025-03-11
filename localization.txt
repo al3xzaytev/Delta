@@ -1,7 +1,7 @@
 VICTORY_MESSAGE = VICTORY !!\n[0] defeated !!
 DEFEAT_MESSAGE = DEFEATED !!\nYou have been defeated by the [0] !!
 
-PLAYER_ACTION_PROMPT = What do you want to do? (attack, heal, block): 
+PLAYER_ACTION_PROMPT = What do you want to do? (attack, heal, block)\nPress Enter to skip turn.
 PLAYER_POISONED = [0] is being poisoned by the [1]!! They will lose [2] HP every turn.
 PLAYER_ROOTED = [0] is being rooted by the [1]!! They cannot do anything this turn.
 
