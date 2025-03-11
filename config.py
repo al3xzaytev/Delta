@@ -49,6 +49,7 @@ def read_config(parameter):  # Returns a value of the configuration parameter sp
             found = True
         else:
             continue
+
     if found:
         print(f"{isolated_parameter[0]}={isolated_parameter[1]}")
         return value

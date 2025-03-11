@@ -1,6 +1,6 @@
 import copy
 
-import turn
+import game
 import config
 import monsters
 
@@ -74,6 +74,8 @@ def start_level(player_count):
                     else:
                         continue
 
+        # For whatever reason, moving this part onto the above elif breaks the game.
+        # I have no idea why, it just does that.
         if new_level:
             print("================================================================================")
             print(f"LEVEL {level_number}")
@@ -85,7 +87,7 @@ def start_level(player_count):
             print("================================================================================")
 
         while True:
-            result = turn.turn(player_list, monster)  # Go play the game.
+            result = game.turn(player_list, monster)  # Go play the game.
             if result == "win":
                 for player in player_list:
                     player.effect = "None"  # Resets all effects
